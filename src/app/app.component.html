@@ -1,0 +1,10 @@
+<!-- Affiche navbar et sidebar sauf sur les pages login, register, etc. -->
+<div *ngIf="routeChecked">
+  <div *ngIf="!isLoginPage">
+    <app-navbar></app-navbar>
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <!-- Affiche la page actuelle -->
+  <router-outlet></router-outlet>
+</div>

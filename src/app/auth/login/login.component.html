@@ -1,0 +1,33 @@
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100 px-3">
+  <div class="card p-4 shadow-lg w-100 mx-2" style="max-width: 400px; border-radius: 15px;">
+    <h3 class="text-center mb-4" style="font-weight: bold; color: #007BFF;">Connexion</h3>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Adresse email -->
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="email">Adresse email</label>
+        <input type="email" id="email" class="form-control shadow-sm" [(ngModel)]="email" name="email"
+          placeholder="Entrez votre adresse email" required>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="password">Mot de passe</label>
+        <input type="password" id="password" class="form-control shadow-sm" [(ngModel)]="password" name="password"
+          placeholder="Entrez votre mot de passe" required>
+      </div>
+
+      <!-- Bouton de connexion -->
+      <button type="submit" class="btn btn-dark w-100 py-2"
+        style="background-color: #007BFF; border-radius: 25px; font-weight: bold;">
+        Se connecter
+      </button>
+    </form>
+
+    <!-- Liens pour mot de passe oublié et création de compte -->
+    <div class="text-center mt-4">
+      <a routerLink="/register" class="text-primary fw-bold">Créer un compte</a> |
+      <a routerLink="/forgot-password" class="text-danger fw-bold">Mot de passe oublié ?</a>
+    </div>
+  </div>
+</div>

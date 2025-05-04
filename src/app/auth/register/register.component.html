@@ -1,0 +1,99 @@
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100 px-3">
+  <div class="card p-4 shadow-lg w-100 mx-auto" style="max-width: 400px; border-radius: 15px;">
+    <h3 class="text-center mb-4" style="color: #007BFF; font-weight: bold;">Inscription</h3>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <!-- Nom d'utilisateur -->
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control shadow-sm"
+          formControlName="username"
+          placeholder="Entrez votre nom d'utilisateur"
+          [ngClass]="{'is-invalid': registerForm.controls['username'].invalid && registerForm.controls['username'].touched}"
+          required
+        />
+        <div *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched" class="invalid-feedback">
+          Nom d'utilisateur requis.
+        </div>
+      </div>
+
+      <!-- Numéro de téléphone -->
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="phoneNumber">Numéro de téléphone</label>
+        <div class="row g-2">
+          <div class="col-12 col-sm-4">
+            <select class="form-select" formControlName="countryCode">
+              <option value="+216">🇹🇳 +216</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+91">🇮🇳 +91</option>
+            </select>
+          </div>
+          <div class="col-12 col-sm-8">
+            <input
+              type="tel"
+              id="phoneNumber"
+              class="form-control shadow-sm"
+              formControlName="phoneNumber"
+              placeholder="Entrez votre numéro"
+              [ngClass]="{'is-invalid': registerForm.controls['phoneNumber'].invalid && registerForm.controls['phoneNumber'].touched}"
+              required
+            />
+          </div>
+        </div>
+        <div *ngIf="registerForm.controls['phoneNumber'].invalid && registerForm.controls['phoneNumber'].touched" class="invalid-feedback">
+          Numéro de téléphone requis.
+        </div>
+      </div>
+
+      <!-- Adresse e-mail -->
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="email">Adresse e-mail</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control shadow-sm"
+          formControlName="email"
+          placeholder="Entrez votre adresse e-mail"
+          [ngClass]="{'is-invalid': registerForm.controls['email'].invalid && registerForm.controls['email'].touched}"
+          required
+        />
+        <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="invalid-feedback">
+          Adresse e-mail invalide.
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control shadow-sm"
+          formControlName="password"
+          placeholder="Entrez votre mot de passe"
+          [ngClass]="{'is-invalid': registerForm.controls['password'].invalid && registerForm.controls['password'].touched}"
+          required
+        />
+        <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched" class="invalid-feedback">
+          Mot de passe requis.
+        </div>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <button type="submit" class="btn btn-dark w-100 py-2" style="background-color: #007BFF; border-radius: 25px; font-weight: bold;">
+        S'inscrire
+      </button>
+    </form>
+
+    <!-- Liens pour connexion -->
+    <div class="text-center mt-3">
+      <a routerLink="/login" class="text-primary fw-bold">Déjà un compte ? Se connecter</a>
+    </div>
+  </div>
+</div>

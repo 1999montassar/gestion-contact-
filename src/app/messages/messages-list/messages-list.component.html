@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <h3 class="mb-4 text-primary">📩 Messages</h3>
+
+  <!-- Liste des sous-liens avec des icônes -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="sent" routerLinkActive="active">
+        <i class="bi bi-send"></i> Messages envoyés
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="received" routerLinkActive="active">
+        <i class="bi bi-inbox"></i> Messages reçus
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="favorites" routerLinkActive="active">
+        <i class="bi bi-star"></i> Messages favoris
+      </a>
+    </li>
+  </ul>
+
+  <!-- Sous-composants de messages dans une carte avec une ombre légère -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="messages-content mt-2 p-3">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

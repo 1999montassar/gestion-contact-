@@ -1,0 +1,27 @@
+.messages {
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+  
+  .message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    max-width: 75%;
+  }
+  
+  .sender {
+    background-color: #e3f2fd;
+    text-align: right;
+  }
+  
+  .receiver {
+    background-color: #fce4ec;
+  }
+  
+  button:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+  }
+  

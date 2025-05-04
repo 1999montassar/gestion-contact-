@@ -1,0 +1,67 @@
+<div class="container p-4 bg-white rounded shadow w-75" style="max-width: 500px;">
+  <h4 class="text-center mb-3 text-primary">Discussion</h4>
+
+  <!-- Section des messages -->
+  <div class="messages border p-2 rounded mb-3 bg-light" style="height: 300px; overflow-y: auto;">
+    <div *ngFor="let message of messages" class="mb-2 p-2 rounded shadow-sm d-flex flex-column"
+         [ngClass]="{'bg-primary text-white align-self-end': message.sender === 'Moi', 'bg-secondary text-white align-self-start': message.sender !== 'Moi'}">
+      <strong>{{ message.sender }}:</strong>
+      <p>{{ message.content }}</p>
+      <div class="d-flex justify-content-end gap-2 mt-1">
+        <button *ngIf="!message.isFavorite" (click)="addToFavorites(message.id)" class="btn btn-outline-warning btn-sm">
+          <i class="bi bi-heart"></i>
+        </button>
+        <span *ngIf="message.isFavorite" class="text-success">
+          <i class="bi bi-heart-fill"></i>
+        </span>
+        <button (click)="deleteMessage(message.id)" class="btn btn-outline-danger btn-sm">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire de message -->
+  <form [formGroup]="messageForm" (ngSubmit)="envoyerMessage()" class="bg-white">
+    <div class="mb-2">
+      <label class="form-label">Mode d'envoi</label>
+      <div class="d-flex gap-3">
+        <div class="form-check">
+          <input type="radio" id="email" formControlName="modeEnvoi" value="email" class="form-check-input" (change)="onModeChange('email')">
+          <label for="email" class="form-check-label">Email</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" id="telephone" formControlName="modeEnvoi" value="telephone" class="form-check-input" (change)="onModeChange('telephone')">
+          <label for="telephone" class="form-check-label">Téléphone</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Champ destinataire -->
+    <div class="mb-2">
+      <input type="text" formControlName="destinataire" class="form-control form-control-sm"
+             [placeholder]="selectedMode === 'email' ? 'Email' : 'Numéro de téléphone'">
+      <div *ngIf="messageForm.get('destinataire')?.hasError('invalidEmail')" class="text-danger">
+        L'email n'est pas valide.
+      </div>
+      <div *ngIf="messageForm.get('destinataire')?.hasError('invalidPhone')" class="text-danger">
+        Le numéro de téléphone n'est pas valide.
+      </div>
+    </div>
+
+    <!-- Champ message -->
+    <div class="mb-2">
+      <textarea formControlName="message" class="form-control form-control-sm" rows="3" placeholder="Votre message..."></textarea>
+    </div>
+
+    <!-- Boutons de soumission et annulation -->
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary btn-sm" [disabled]="messageForm.invalid">
+        <i class="bi bi-send"></i> Envoyer
+      </button>
+      <button type="button" class="btn btn-outline-danger btn-sm" (click)="annulerMessage()">
+        <i class="bi bi-x-circle"></i> Annuler
+      </button>
+    </div>
+  </form>
+</div>

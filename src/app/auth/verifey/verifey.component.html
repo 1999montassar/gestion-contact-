@@ -1,0 +1,45 @@
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100 px-3">
+  <div class="card p-4 shadow-lg mx-auto w-100" style="max-width: 350px; border-radius: 20px;">
+    <h3 class="text-center mb-4 text-primary fw-bold">Vérification du Code</h3>
+
+    <form [formGroup]="verifeyForm" (ngSubmit)="verifierCode()">
+      <div class="mb-3">
+        <label for="code" class="form-label fw-semibold">Code de vérification</label>
+        <input
+          id="code"
+          type="text"
+          class="form-control shadow-sm"
+          formControlName="verificationCode"
+          placeholder="Entrez le code à 6 chiffres"
+          maxlength="6"
+          [ngClass]="{
+            'is-invalid': verifeyForm.get('verificationCode')?.invalid && verifeyForm.get('verificationCode')?.touched
+          }"
+        />
+        <div *ngIf="verifeyForm.get('verificationCode')?.errors?.['required'] && verifeyForm.get('verificationCode')?.touched"
+             class="invalid-feedback">
+          Le code de vérification est requis.
+        </div>
+        <div *ngIf="verifeyForm.get('verificationCode')?.errors?.['pattern'] && verifeyForm.get('verificationCode')?.touched"
+             class="invalid-feedback">
+          Le code doit contenir exactement 6 chiffres.
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 py-2 px-3" style="border-radius: 15px;">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn w-100 py-2 text-white fw-bold" style="background-color: #007BFF; border-radius: 25px;" (click)="verifierCode()">
+        Vérifier le code
+      </button>
+      
+    </form>
+
+    <div class="text-center mt-3">
+      <button (click)="goToForgotPassword()" class="btn text-decoration-none fw-bold text-primary" style="background-color: transparent; border: none;">
+        Retour à la réinitialisation
+      </button>
+    </div>
+  </div>
+</div>

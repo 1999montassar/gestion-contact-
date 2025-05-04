@@ -1,0 +1,21 @@
+<div *ngIf="sentMessages.length === 0" class="alert alert-info">
+  Aucun message envoyé pour le moment.
+</div>
+
+<div *ngFor="let message of sentMessages" class="card mb-3 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">À : {{ message.recipient }}</h5>
+    <p class="card-text">
+      {{ message.content }}
+    </p>
+    <div class="d-flex justify-content-between">
+      <span class="text-muted">
+        Mode : {{ message.mode }} <br />
+        Envoyé le : {{ message.createdAt | date:'short' }}
+      </span>
+      <button class="btn btn-outline-danger btn-sm" (click)="deleteMessage(message._id)">
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div>

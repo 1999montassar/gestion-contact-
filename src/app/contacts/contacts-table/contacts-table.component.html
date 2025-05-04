@@ -1,0 +1,92 @@
+<div class="container mt-4">
+  <div class="card shadow-lg border-white mt-4">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">📋 Liste des Contacts</h4>
+      <button class="btn btn-light fw-bold" (click)="ajouterContact()">
+        <i class="bi bi-plus-circle"></i> Ajouter
+      </button>
+    </div>
+
+    <div class="card-body">
+      <!-- Barre de recherche -->
+      <div class="mb-3 d-flex justify-content-end">
+        <input 
+          type="text" 
+          class="form-control w-25 rounded-pill" 
+          placeholder="🔍 Rechercher..." 
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="searchContacts()"
+        />
+      </div>
+
+      <!-- Tableau des contacts -->
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+          <thead class="bg-dark text-white">
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Téléphone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of contacts; let i = index">
+              <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+              <td>
+                <span *ngIf="!contact.isEditing">{{ contact.nom }}</span>
+                <input *ngIf="contact.isEditing" type="text" class="form-control" [(ngModel)]="contact.nom">
+              </td>
+              <td>
+                <span *ngIf="!contact.isEditing">{{ contact.email }}</span>
+                <input *ngIf="contact.isEditing" type="email" class="form-control" [(ngModel)]="contact.email">
+              </td>
+              <td>
+                <span *ngIf="!contact.isEditing">{{ contact.telephone }}</span>
+                <input *ngIf="contact.isEditing" type="text" class="form-control" [(ngModel)]="contact.telephone">
+              </td>
+              <td class="text-center">
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-info text-white" (click)="consulterContact(contact)">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button *ngIf="!contact.isEditing" class="btn btn-sm btn-warning text-white" (click)="modifierContact(contact)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button *ngIf="contact.isEditing" class="btn btn-sm btn-success text-white" (click)="sauvegarderContact(contact)">
+                    <i class="bi bi-save"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger text-white" (click)="supprimerContact(contact._id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  <button class="btn btn-sm btn-secondary text-white" (click)="ajouterFavoris(contact)">
+                    <i class="bi" [class.bi-star-fill]="contact.isFavorite" [class.bi-star]="!contact.isFavorite"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-between mt-3">
+        <span>Affichage de {{ (currentPage - 1) * itemsPerPage + 1 }} à {{ (currentPage * itemsPerPage) > contacts.length ? contacts.length : currentPage * itemsPerPage }} contacts sur {{ contacts.length }}</span>
+        <nav>
+          <ul class="pagination pagination-sm">
+            <li class="page-item" [ngClass]="{ 'disabled': currentPage === 1 }">
+              <a class="page-link" (click)="prevPage()">Précédent</a>
+            </li>
+            <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item" [ngClass]="{ 'active': currentPage === (i + 1) }">
+              <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [ngClass]="{ 'disabled': currentPage === totalPages }">
+              <a class="page-link" (click)="nextPage()">Suivant</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
